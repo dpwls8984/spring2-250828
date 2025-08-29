@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Configuration
 @RequiredArgsConstructor
 public class BaseInitData {
+
     @Autowired
     @Lazy
     private BaseInitData self;
@@ -23,12 +24,13 @@ public class BaseInitData {
     ApplicationRunner initDataRunner() {
         return args -> {
             self.work1();
-
+            self.work2();
         };
     }
 
     @Transactional
     void work1() {
+        if(memberService.count() > 0) return;
 
         Member member1 = memberService.join("systemUser", "시스템");
         Member member2 = memberService.join("adminUser", "관리자");
@@ -36,5 +38,12 @@ public class BaseInitData {
         Member member4 = memberService.join("user2", "유저2");
         Member member5 = memberService.join("user3", "유저3");
 
+    }
+
+    @Transactional
+    //트랜잭션이 작동되려면 프록시를 거쳐야한다
+    void work2() {
+        Member member4 = memberService.findByUsername("user2").get();
+        member4.setNickname("new user2");
     }
 }
