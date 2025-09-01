@@ -19,7 +19,6 @@ public class BaseInitData {
     @Autowired
     @Lazy
     private BaseInitData self;
-
     private final MemberService memberService;
     private final WiseSayingService wiseSayingService;
 
@@ -32,7 +31,6 @@ public class BaseInitData {
         };
     }
 
-    @Transactional
     void work1() {
         if(memberService.count() > 0) return;
 
