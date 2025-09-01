@@ -1,5 +1,5 @@
 server:
-  port: 8070
+  port: 8080
 
 spring:
   profiles:
@@ -8,6 +8,9 @@ spring:
   output:
     ansi:
       enabled: always
+  datasource:
+    hikari:
+      auto-commit: false
 
   jpa:
     properties:
